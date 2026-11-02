@@ -3,9 +3,7 @@ var checkTime;
 //Initialize function
 var init = function () {
 
-/*
-    // TODO:: Do your initialization job
-    console.log('init() called');
+    console.log('init() called!');
     
     document.addEventListener('visibilitychange', function() {
         if(document.hidden){
@@ -36,8 +34,8 @@ var init = function () {
     		break;
     	}
     });
-*/
 
+    console.log('init() ended!');
 };
 
 // window.onload can work without <body onload="">

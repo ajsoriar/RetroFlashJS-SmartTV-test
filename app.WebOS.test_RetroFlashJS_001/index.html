@@ -2,41 +2,13 @@
 <html>
 
 <head>
-	<title>Star Field</title>
+    <title>Test RetroFlashJS</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link id="theme" rel="stylesheet" href="css/style.css">
-
-    <!--
-    <script src="webOSTVjs-1.2.4/webOSTV.js" charset="utf-8"></script>
-    <script src="webOSTVjs-1.2.4/webOSTV-dev.js" charset="utf-8"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.1/underscore-min.js"></script>
-    <script src="./libs/spatial-navigator.js"></script>
-
-    <script src="libs/three.r117.min.js"></script>
-    <script src="libs/main.js"></script>
-    <script src="libs/easter-eggs.js"></script>
-
-    <script src="./js/utils.js"></script>
-    <script src="./js/target.js"></script>
-    <script src="./js/asteroids.js"></script>
-    <script src="./js/enemies.js"></script>
-    <script src="./js/assets.js"></script>
-
-    <script src="./js/indicators/indicators.js"></script>
-    <link rel="stylesheet" href="./js/indicators/indicators.css">
-    <link rel="stylesheet" href="./css/gameLoop.css">
-    <link rel="stylesheet" href="./js/menu/menu.css">
-    <link rel="stylesheet" href="./js/credits/credits.css">
-    <link rel="stylesheet" href="./js/settings/settings.css">
-    -->
-
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/styles.css">
 
     <script type="text/javascript">
-        //sample code for calling LS2 API
         webOS.service.request("luna://com.palm.systemservice", {
             method: "clock/getTime",
             parameters: {},
@@ -55,174 +27,12 @@
 
 <body class="my-body simple-graphics">
 
-    <!--
+    <object data="./swf/test1.swf" type="application/x-shockwave-flash" width="1920" height="1080">
+        <param name="movie" value="./swf/test1.swf">
+        <param name="quality" value="high">
+    </object>
 
-    <div id="main-menu">
-        <div id="main-menu-container">
-            <div id="main-menu-title">Star Field</div>
-            <div id="main-menu-buttons">
-                <div id="main-menu-play" class="focusable main-menu-button" onclick="Router.goTo('GAME')">Play</div>
-                <div id="main-menu-settings" class="focusable main-menu-button" onclick="Router.goTo('SETTINGS')">Settings</div>
-                <div id="main-menu-credits" class="focusable main-menu-button" onclick="Router.goTo('CREDITS')">Credits</div>
-            </div>
-        </div>
-    </div>
-
-    <div id="game-screen">
-
-        <div class="hola"></div>
-        <div id="testResult"></div>
-    
-        <div id="position"></div>
-    
-        <div class="debugBtnContainer">
-          <div class="btn btn1"></div>
-          <div class="btn btn2"></div>
-          <div class="btn btn3"></div>
-          <div class="btn btn4"></div>
-          <div class="btn btn5"></div>
-          <div class="btn btn6"></div>
-          <div class="btn btn7"></div>
-          <div class="btn btn8"></div>
-          <div class="btn btn9"></div>
-        </div>
-    
-        <div id="target_container" style="position: absolute; left: 50%; top: 50%">
-            <div id="target" style="position: absolute;
-            display: block;
-            width: 100px;
-            height: 100px;
-            outline: 4px solid #00ff3e;
-            top: -50px;
-            left: -50px;
-            z-index: 100;"></div>
-        </div>
-
-        <div id="radar"></div>
-
-        <div id="game-buttons">
-            <div id="game-back-button" class="game-back-button" onclick="Router.goTo('MAIN_MENU')">Main Menu</div>
-        </div>
-    
-    </div>
-
-    <div id="game-over">
-        <div id="game-over-container">
-            <div id="game-over-title">Game Over</div>
-            <div id="game-over-buttons">
-                <div id="game-over-restart" class="game-over-button" onclick="Router.goTo('GAME')">Restart</div>
-                <div id="game-over-main-menu" class="game-over-button" onclick="Router.goTo('MAIN_MENU')">Main Menu</div>
-            </div>
-        </div>
-    </div>
-
-    <div id="settings">
-        <div id="settings-container">
-            <div id="settings-title">Settings</div>
-            <div id="settings-music" class="settings-option">
-                <div class="settings-option-title">Music</div>
-                <div class="settings-option-buttons">
-                    <div id="settings-music-on" class="settings-option-button focusable" onclick="Settings.toggleMusic()">On</div>
-                    <div id="settings-music-off" class="settings-option-button focusable" onclick="Settings.toggleMusic()">Off</div>
-                </div>
-                <div id="settings-sound" class="settings-option">
-                    <div class="settings-option-title">Sound</div>
-                    <div class="settings-option-buttons">
-                        <div id="settings-sound-on" class="settings-option-button focusable" onclick="Settings.toggleSound()">On</div>
-                        <div id="settings-sound-off" class="settings-option-button focusable" onclick="Settings.toggleSound()">Off</div>
-                    </div>
-                </div>
-
-                <div id="settings-sound" class="settings-option">
-                    <div class="settings-option-title">Graphics</div>
-                    <div class="settings-description">Show / Hide starfield background</div>
-                    <div class="settings-option-buttons">
-                        <div id="settings-sound-on" class="settings-option-button focusable" onclick="Settings.toggleBackground()">On</div>
-                        <div id="settings-sound-off" class="settings-option-button focusable" onclick="Settings.toggleBackground()">Off</div>
-                    </div>
-                </div>
-
-            </div>
-            <div id="settings-buttons">
-                <div id="settings-back" class="settings-button focusable" onclick="Router.goTo('MAIN_MENU')">Back</div>
-            </div>
-        </div>
-    </div>
-
-    <div id="credits">
-        <div id="credits-container">
-            <div id="credits-title">Credits</div>
-            <div id="credits-text">
-                <div class="credits-text-line">Developed by: AJSR </div>
-                <div class="credits-text-line">Art by: AJSR </div>
-                <div class="credits-text-line">Music by: AJSR </div>
-                <div class="credits-text-line">Sound by: AJSR </div>
-            </div>
-            <div id="credits-buttons">
-                <div id="credits-back" class="credits-button focusable" onclick="Router.goTo('MAIN_MENU')">Back</div> 
-            </div>
-        </div>
-    </div>
-    -->
-
-    <!--
-    <script src="./js/router.js"></script>
-    <script src="./js/gameLoop.js"></script>
-    <script src="./js/keys.js"></script>
-    <script src="./js/radar.js"></script>
-    <script src="./js/laser.js"></script>
-    <script src="./js/menu/menu.js"></script>
-    -->
-
-    <!--
-        On webOS the app is served from file://, where RetroFlash.js does not autoplay <object>.
-        The SWF is read with XHR and handed to the player as bytes.
-    -->
-    <canvas id="stage" width="1920" height="1080"></canvas>
-
-    <script>
-        (function () {
-            var SWF_URL = './test.swf';
-            var player = new RetroFlash.Player({ canvas: document.getElementById('stage') });
-
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', SWF_URL, true);
-            xhr.responseType = 'arraybuffer';
-            xhr.onload = function () {
-                // file:// answers with status 0 on success.
-                if ((xhr.status !== 0 && (xhr.status < 200 || xhr.status >= 300)) || !xhr.response) {
-                    console.error('[app] Could not read ' + SWF_URL + ' (status ' + xhr.status + ').');
-                    return;
-                }
-                player.load(xhr.response, { url: new URL(SWF_URL, location.href).href }).then(function () {
-                    player.play();
-                }).catch(function (error) {
-                    console.error('[app] Could not play ' + SWF_URL + ':', error);
-                });
-            };
-            xhr.onerror = function () {
-                console.error('[app] Could not read ' + SWF_URL + '.');
-            };
-            xhr.send();
-        })();
-    </script>
-
-    <script src="./js/keys.js"></script>
-
-    <script>
-
-        /*
-        Router.hideAll();
-        Router.goTo('MAIN_MENU');
-        */
-
-        // GameLoop.init();
-        // Indicators.init();
-        // Indicators.showAll();
-        // Indicators.hide.damage();
-        // Indicators.hide.achievement();
-        // Indicators.hideAll();
-    </script>
+    <script src="./js/main.js"></script>
 
 </body>
 
