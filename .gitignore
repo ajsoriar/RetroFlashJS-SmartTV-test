@@ -1,1 +1,39 @@
 RetroFlash.js/
+*.fla
+*.ipk
+*.swf
+dist/
+
+# Node.js dependencies and generated test output
+node_modules/
+coverage/
+.nyc_output/
+*.tsbuildinfo
+
+# Local environment and debug logs
+.env
+.env.*
+!.env.example
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Operating system and editor files
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary and local cache files
+.cache/
+.parcel-cache/
+.turbo/
+*.tmp
+*.temp

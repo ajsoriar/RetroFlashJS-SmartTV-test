@@ -1,3 +1,27 @@
-ares-package  --no-minify .
+RetroFlashJS para webOS TV
+========================
 
-ares-install --device Alfondo .\com.subidote.app_0.0.1_all.ipk
+ID: com.retroflashjstv.app
+Version: 1.0.0
+Tipo: aplicación web
+Entrada: index.html
+
+Empaquetar
+----------
+Desde la carpeta raíz del proyecto, ejecuta build_webos.bat.
+El script usa ares-package y guarda el paquete en .\dist\.
+
+Comando equivalente:
+ares-package ".\app.WebOS.test_RetroFlashJS_001" --outdir ".\dist"
+
+El nombre esperado del paquete es:
+dist\com.retroflashjstv.app_1.0.0_all.ipk
+
+Instalar en un dispositivo configurado con ares
+-----------------------------------------------
+Sustituye <dispositivo> por el alias configurado en ares-setup-device:
+
+ares-install --device <dispositivo> ".\dist\com.retroflashjstv.app_1.0.0_all.ipk"
+
+Lanzar la app:
+ares-launch --device <dispositivo> com.retroflashjstv.app
