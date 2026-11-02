@@ -174,14 +174,38 @@
     <script src="./js/menu/menu.js"></script>
     -->
 
-    <object
-        data="./test.swf"
-        type="application/x-shockwave-flash"
-        width="1920"
-        height="1080">
-        <param name="movie" value="./test.swf">
-        <param name="quality" value="high">
-    </object>
+    <!--
+        On webOS the app is served from file://, where RetroFlash.js does not autoplay <object>.
+        The SWF is read with XHR and handed to the player as bytes.
+    -->
+    <canvas id="stage" width="1920" height="1080"></canvas>
+
+    <script>
+        (function () {
+            var SWF_URL = './test.swf';
+            var player = new RetroFlash.Player({ canvas: document.getElementById('stage') });
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', SWF_URL, true);
+            xhr.responseType = 'arraybuffer';
+            xhr.onload = function () {
+                // file:// answers with status 0 on success.
+                if ((xhr.status !== 0 && (xhr.status < 200 || xhr.status >= 300)) || !xhr.response) {
+                    console.error('[app] Could not read ' + SWF_URL + ' (status ' + xhr.status + ').');
+                    return;
+                }
+                player.load(xhr.response, { url: new URL(SWF_URL, location.href).href }).then(function () {
+                    player.play();
+                }).catch(function (error) {
+                    console.error('[app] Could not play ' + SWF_URL + ':', error);
+                });
+            };
+            xhr.onerror = function () {
+                console.error('[app] Could not read ' + SWF_URL + '.');
+            };
+            xhr.send();
+        })();
+    </script>
 
     <script src="./js/keys.js"></script>
 
