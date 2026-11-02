@@ -1,0 +1,146 @@
+/* 
+    // Styles for:
+
+    <div id="settings">
+        <div id="settings-container">
+            <div id="settings-title">Settings</div>
+            <!-- Music and sound -->
+            <div id="settings-music" class="settings-option">
+                <div class="settings-option-title">Music</div>
+                <div class="settings-option-buttons">
+                    <div id="settings-music-on" class="settings-option-button" onclick="Settings.toggleMusic()">On</div>
+                    <div id="settings-music-off" class="settings-option-button" onclick="Settings.toggleMusic()">Off</div>
+                </div>
+            </div>
+            <div id="settings-buttons">
+                <div id="settings-back" class="settings-button" onclick="Router.goTo('MAIN_MENU')">Back</div>
+            </div>
+        </div>
+    </div> 
+*/
+
+#settings {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+#settings-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 300px;
+    margin-top: -150px;
+    margin-left: -150px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid #fff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#settings-title {
+    font-size: 40px;
+    color: #fff;
+    text-shadow: 2px 2px 2px #000;
+}
+
+.settings-option {
+    width: 200px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid #fff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    color: #fff;
+}
+
+.settings-option-title {
+    font-size: 20px;
+    color: #fff;
+    text-shadow: 2px 2px 2px #000;
+}
+
+.settings-option-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.settings-option-button {
+    width: 50px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid #fff;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    color: #fff;
+    text-shadow: 2px 2px 2px #000;
+    cursor: pointer;
+}
+
+.settings-option-button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#settings-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.settings-button {
+    width: 100px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid #fff;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    color: #fff;
+    text-shadow: 2px 2px 2px #000;
+    cursor: pointer;
+}
+
+.settings-button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#settings-back {
+    background-color: #f00;
+}
+
+#settings-music-on {
+    background-color: #0f0;
+}
+
+#settings-music-off {
+    background-color: #f00;
+}
+
+#settings-sound-on {
+    background-color: #0f0;
+}
+
+#settings-sound-off {
+    background-color: #f00;
+}
+
+/* Path: js/setings/settings.js */
+

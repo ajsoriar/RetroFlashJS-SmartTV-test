@@ -1,0 +1,81 @@
+/*
+    // Styles for:
+
+     <div id="main-menu">
+        <div id="main-menu-container">
+            <div id="main-menu-title">Star Field</div>
+            <div id="main-menu-buttons">
+                <div id="main-menu-play" class="main-menu-button">Play</div>
+                <div id="main-menu-settings" class="main-menu-button">Settings</div>
+                <div id="main-menu-credits" class="main-menu-button">Credits</div>
+            </div>
+        </div>
+    </div>
+
+*/
+
+#main-menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+#main-menu-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 300px;
+    margin-top: -150px;
+    margin-left: -150px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid #fff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#main-menu-title {
+    font-size: 40px;
+    color: #fff;
+    text-shadow: 2px 2px 2px #000;
+}
+
+.main-menu-button {
+    width: 200px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid #fff;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color: #fff;
+    text-shadow: 2px 2px 2px #000;
+    cursor: pointer;
+}
+
+.main-menu-button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#main-menu-play {
+    background-color: #0f0;
+}
+
+#main-menu-settings {
+    background-color: #00f;
+}
+
+#main-menu-credits {
+    background-color: #f00;
+}
+
+/* Path: js/menu/menu.js */

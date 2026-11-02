@@ -1,0 +1,11 @@
+{
+  "id": "com.retroflashjstv.app",
+  "version": "1.0.0",
+  "vendor": "AJSR",
+  "type": "web",
+  "main": "index.html",
+  "title": "test",
+  "icon": "icon.png",
+  "largeIcon": "largeIcon.png",
+  "disableBackHistoryAPI": true
+}
