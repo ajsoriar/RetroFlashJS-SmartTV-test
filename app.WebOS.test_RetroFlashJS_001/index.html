@@ -27,9 +27,11 @@
 
 <body class="my-body simple-graphics">
 
-    <object data="./swf/test2.swf" type="application/x-shockwave-flash" width="1920" height="1080">
+    <!-- The movie fills the window; RetroFlash.js fits the stage into it by the scale parameter. -->
+    <object data="./swf/test2.swf" type="application/x-shockwave-flash" width="100%" height="100%">
         <param name="movie" value="./swf/test2.swf">
         <param name="quality" value="high">
+        <param name="scale" value="showall">
     </object>
 
     <script src="./js/main.js"></script>
