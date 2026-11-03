@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="RetroFlash.js test app for Samsung Tizen TV"/>
+
+    <title>Test RetroFlashJS</title>
+
+    <link rel="stylesheet" type="text/css" href="css/styles.css"/>
+    <script src="libs/retroflash-1.1.2.min.js"></script>
+</head>
+
+<body class="my-body simple-graphics">
+
+    <!-- The movie fills the window; RetroFlash.js fits the stage into it by the scale parameter. -->
+    <object id="retroflashMovie" data="swf/test_3.swf" type="application/x-shockwave-flash" width="100%" height="100%">
+        <param name="movie" value="swf/test_3.swf">
+        <param name="quality" value="high">
+        <param name="scale" value="showall">
+    </object>
+
+    <script src="js/main.js"></script>
+    <script src="js/tizen.js"></script>
+</body>
+</html>

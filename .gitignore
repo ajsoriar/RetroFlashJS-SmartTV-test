@@ -3,7 +3,16 @@ RetroFlash.js/
 *.ipk
 *.swf
 !app.WebOS.test_RetroFlashJS_001/swf/*.swf
+!app.Tizen.test_RetroFlashJS_001/swf/*.swf
 dist/
+
+# Tizen Studio build output and signing files
+*.wgt
+.buildResult/
+.sign/
+.settings/
+author-signature.xml
+signature1.xml
 
 # Node.js dependencies and generated test output
 node_modules/
