@@ -1,62 +1,85 @@
-var checkTime;
+/* Page-to-SWF keyboard bridge and SWF-to-page click reporting.
+   The SWF should register ExternalInterface.addCallback("receiveHostKey", ...),
+   and call ExternalInterface.call("onSwfClick", x, y) for a click. */
+(function () {
+    'use strict';
 
-//Initialize function
-var init = function () {
+    var MOVIE_ID = 'retroflashMovie';
+    var KEY_CALLBACK = 'receiveHostKey';
+    var moviePlayer = null;
 
-    console.log('init() called!');
-    
-    document.addEventListener('visibilitychange', function() {
-        if(document.hidden){
-            // Something you want to do when hide or exit.
-        } else {
-            // Something you want to do when resume.
-        }
-    });
- 
-    // add eventListener for keydown
-    document.addEventListener('keydown', function(e) {
-    	switch(e.keyCode){
-    	case 37: //LEFT arrow
-    		break;
-    	case 38: //UP arrow
-    		break;
-    	case 39: //RIGHT arrow
-    		break;
-    	case 40: //DOWN arrow
-    		break;
-    	case 13: //OK button
-    		break;
-    	case 10009: //RETURN button
-		tizen.application.getCurrentApplication().exit();
-    		break;
-    	default:
-    		console.log('Key code : ' + e.keyCode);
-    		break;
-    	}
-    });
+    // Called by ActionScript 2 through ExternalInterface.call("onSwfClick", x, y).
+    window.onSwfClick = function (x, y) {
+        console.log('[html] SWF click at stage coordinates:', x, y);
+    };
 
-    console.log('init() ended!');
-};
-
-// window.onload can work without <body onload="">
-//window.onload = init;
-
-/*
-function startTime() {
-    var today = new Date();
-    var h = today.getHours();
-    var m = today.getMinutes();
-    var s = today.getSeconds();
-    m = checkTime(m);
-    s = checkTime(s);
-    document.getElementById('divbutton1').innerHTML='Current time: ' + h + ':' + m + ':' + s;
-    setTimeout(startTime, 10);
-}
-
-function checkTime(i) {
-    if (i < 10) {
-        i='0' + i;
+    function isEditableTarget(target) {
+        if (!target) return false;
+        var tag = String(target.tagName || '').toLowerCase();
+        return target.isContentEditable || tag === 'input' || tag === 'textarea' || tag === 'select';
     }
-    return i;
-}
-*/
+
+    function isPlayerLoaded(player) {
+        var state = player.getInfo().state;
+        return state === 'ready' || state === 'playing' || state === 'paused';
+    }
+
+    function bindPlayer(player) {
+        if (!player || moviePlayer === player) return;
+        moviePlayer = player;
+
+        if (isPlayerLoaded(player)) {
+            logPlayerReady(player);
+        } else {
+            player.on('load', function () { logPlayerReady(player); });
+        }
+
+        player.on('error', function (error) {
+            console.error('[html] SWF error:', error && error.message ? error.message : error);
+        });
+    }
+
+    function logPlayerReady(player) {
+        var registered = player.getCallbacks().indexOf(KEY_CALLBACK) >= 0;
+        console.log('[html] SWF ready; ' + KEY_CALLBACK + (registered ? ' is registered.' : ' is not registered yet.'));
+    }
+
+    // The legacy bootstrap dispatches this after creating the Player for the <object>.
+    document.addEventListener('retroflash:player', function (event) {
+        var detail = event.detail;
+        if (!detail || !detail.element || detail.element.id !== MOVIE_ID) return;
+        bindPlayer(detail.player);
+    }, false);
+
+    function forwardKey(event) {
+        console.log('[html] Key event:', event.type, event.key, event.keyCode);
+
+        if (!moviePlayer || isEditableTarget(event.target)) return;
+        if (!isPlayerLoaded(moviePlayer)) return;
+
+        // Send primitive arguments, not a nested array, so this also works with the current AS3 marshaller.
+        if (moviePlayer.getCallbacks().indexOf(KEY_CALLBACK) < 0) return;
+
+        var handled = false;
+        try {
+            var key = event.key || '';
+            var keyCode = typeof event.keyCode === 'number' ? event.keyCode : 0;
+            handled = moviePlayer.callback(KEY_CALLBACK, [event.type, key, keyCode]) === true;
+        } catch (error) {
+            console.error('[html] Could not forward the key to the SWF:', error);
+        }
+
+        // Capture phase lets a handled key stop before RetroFlash also sends it as a native canvas key event.
+        if (handled) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    }
+
+    // These page-level events also cover TV remote keys delivered outside the canvas.
+    document.addEventListener('keydown', forwardKey, true);
+    document.addEventListener('keyup', forwardKey, true);
+
+    // Covers cases where this script is loaded after the legacy bootstrap event.
+    if (window.RetroFlash) bindPlayer(window.RetroFlash.getInstance(MOVIE_ID));
+}());
